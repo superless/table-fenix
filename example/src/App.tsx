@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import 'semantic-ui-css/semantic.min.css';
+
 
 import { TestComponent } from './reactComponentLib';
 

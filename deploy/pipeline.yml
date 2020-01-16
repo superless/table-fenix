@@ -59,7 +59,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)/dist'
-    contents: '*' 
+    contents: '**' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm/dist/
   displayName: 'Copy Build'
   

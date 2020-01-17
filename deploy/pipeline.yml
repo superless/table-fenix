@@ -22,18 +22,7 @@ steps:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
 
-- script: |
-    git config --global user.email "alejandro.iglesias@trifenix.io"
-    git config --global user.name "alejandro.iglesias"    
-    git clone https://ale:tztflymo4joqivpd7yj2jqzwekko3owafvhqtzpbk5xxgzkcaqxa@dev.azure.com/Trifenix-Agricola-JHM/Components/_git/component-semantic-styled temp
-    cd temp    
-    git checkout master
-    npm version patch    
-    git push origin master
-    cd .. 
-    cp -rf temp/package.json package.json
-    cat package.json
-  displayName: 'Update version'
+
 
 - script: |        
     npm install    

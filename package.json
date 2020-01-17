@@ -1,6 +1,6 @@
 {
   "name": "fenix-semantic-styled-basic",
-  "version": "1.0.15",
+  "version": "1.0.14",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "repository": {
@@ -41,6 +41,7 @@
     "build": "rollup -c",
     "build-watch": "rollup -c -w",
     "prepublishOnly": "npm run build",
+    "postinstall": "install-peers -f",
     "dev": "concurrently --kill-others \"npm run build-watch\" \"npm run start-example\"",
     "test": "ts-node test/test.ts",
     "pretest": "npm run build",

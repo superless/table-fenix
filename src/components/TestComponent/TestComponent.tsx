@@ -13,6 +13,6 @@ export interface TestComponentProps {
 export const TestComponent: React.FC<TestComponentProps> = ({ text }) => (
   <Wrapper>
     {text ? text : 'Test Component'}
-    <Button>Hola Bastian y Deiby</Button>
+    <Button>Hola Bastian y Deiby etc</Button>
   </Wrapper>
 );

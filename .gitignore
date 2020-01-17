@@ -3,4 +3,5 @@ node_modules
 dist
 .rpt2_cache
 .vsCode
+package-lock.json
 

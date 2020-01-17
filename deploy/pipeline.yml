@@ -24,18 +24,6 @@ steps:
 
 
 
-- script: |        
-    npm install    
-  displayName: 'npm install packages'
-
-- script: |    
-    npm run build    
-  displayName: 'npm build packages'
-
-- script: |
-    npm pack
-  displayName: 'Package for npm release'
-
 
 
 - task: CopyFiles@2

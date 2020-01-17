@@ -6,6 +6,10 @@ trigger:
     exclude:
       - package.json
       - package.lock.json
+      - '*/package.json'
+      - '*/package.lock.json'
+      - '*package.json'
+      - '*package.lock.json' 
       
       
 
@@ -47,19 +51,10 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)/dist'
-    contents: '**' 
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm/dist/
-  displayName: 'Copy Build'
-  
-
-- task: CopyFiles@2
-  inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'package.json' 
+    contents: '**' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy package.json'
-
+  displayName: 'Copy Build'
 
 
 - task: PublishBuildArtifacts@1

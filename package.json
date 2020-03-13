@@ -46,6 +46,6 @@
     "dist"
   ],
   "dependencies": {
-    "tf-search-model": "^1.0.4"
+    "tf-search-model": "^1.0.5"
   }
 }

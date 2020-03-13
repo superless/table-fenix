@@ -14,8 +14,9 @@ export default [
       { file: pkg.main, format: 'cjs' },
       { file: pkg.module, format: 'esm' },
       {
-        file: 'example/src/reactComponentLib/index.js',
+        file: './../trifenix.search.containers/src/components/temp_component/index.js',
         format: 'es',
+        
         banner: '/* eslint-disable */',
       },
     ],

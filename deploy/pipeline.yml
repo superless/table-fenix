@@ -2,41 +2,25 @@ trigger:
   branches:
     include:
       - master
-  paths:
-    exclude:
-      - package.json
-      - package.lock.json
-      - '*/package.json'
-      - '*/package.lock.json'
-      - '*package.json'
-      - '*package.lock.json' 
-      
-      
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: "ubuntu-latest"
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '12.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "12.x"
+    displayName: "Install Node.js"
 
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: "$(Build.SourcesDirectory)"
+      contents: "**"
+      targetFolder: $(Build.ArtifactStagingDirectory)/npm
+    displayName: "Copy Build"
 
-
-
-
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '**' 
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy Build'
-
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
-    artifactName: npm
-  displayName: 'Publish npm artifact'
-
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/npm"
+      artifactName: npm
+    displayName: "Publish npm artifact"

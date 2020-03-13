@@ -1,12 +1,8 @@
 {
-  "name": "fenix-semantic-styled-basic",
-  "version": "1.0.20",
+  "name": "tfsearch-components",
+  "version": "1.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
-  "repository": {
-    "url": "https://github.com/michal-wrzosek/react-component-lib",
-    "type": "git"
-  },
   "license": "MIT",
   "types": "dist/index.d.ts",
   "devDependencies": {
@@ -48,5 +44,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "tf-search-model": "^1.0.4"
+  }
 }

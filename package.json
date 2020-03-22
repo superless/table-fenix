@@ -46,6 +46,8 @@
     "dist"
   ],
   "dependencies": {
-    "tf-search-model": "^1.0.5"
+    "@types/lodash": "^4.14.149",
+    "lodash": "^4.17.15",
+    "tf-search-model": "^1.0.8"
   }
 }

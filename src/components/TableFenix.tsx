@@ -34,17 +34,18 @@ export default function TableFenix(props: ITableFenixProps) {
 
 
   return (
+    
     <Table compact celled selectable color='violet'>
       <Table.Header>
         <Table.Row>
           {propHeader.map(h => (
             <Table.HeaderCell key={`p${h.index}`} textAlign='center'>
-              {h.name}
+              {h.name} FELIPE SANMARTIN
             </Table.HeaderCell>
           ))}
           {entityHeader.map(h => (
             <Table.HeaderCell textAlign='center' key={`e${h.index}`}>
-              {h.name}
+              {h.name} 
             </Table.HeaderCell>
           ))}
         </Table.Row>

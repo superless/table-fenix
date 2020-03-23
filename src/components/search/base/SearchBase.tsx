@@ -101,23 +101,31 @@ export default class SearchBase extends React.Component<
   ) => {
 
     if (e == null) console.log(e);
-    const value = data.result.id;
+    
     this.setState({...this.state, value: data.result.title });
+
+    console.log(data.result);
     // tslint:disable-next-line:no-unused-expression
     this.props.elementSelected && this.props.elementSelected(data.result as ISearchBaseModel);
     
   };
 
-  private handleSearchChange = (    
+  private handleSearchChange = (
+    e: React.SyntheticEvent<Element>,    
     data: SearchProps
   ) => {
+
+    if (e == null) console.log(e);    
     const value = data.value;
     this.setState({ load: true, value });
 
     const re = new RegExp(_.escapeRegExp(this.state.value), "i");
     const isMatch = (result: ISearchBaseModel) => re.test(result.title);
 
+    
+
     const results = _.filter(this.props.source, isMatch);
+    
 
     this.setState({
       load: false,

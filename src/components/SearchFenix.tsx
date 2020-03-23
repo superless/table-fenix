@@ -40,7 +40,8 @@ export function SearchFenix (props: ISearchFilterProps) {
               SearchTypeSelect={searchSelected} 
               loading={loading} 
               onEnter={(elem)=>elementSelected({title : elem, description:"", id : elem})} 
-              defaultSearchType={currentSearch} 
+              defaultSearchType={currentSearch}
+               
               searchTypes={searchTypes}/>
 
   } else if (currentSearch.entityType == "selected"){

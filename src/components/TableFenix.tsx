@@ -40,7 +40,7 @@ export default function TableFenix(props: ITableFenixProps) {
         <Table.Row>
           {propHeader.map(h => (
             <Table.HeaderCell key={`p${h.index}`} textAlign='center'>
-              {h.name} FELIPE SANMARTIN
+              {h.name} 
             </Table.HeaderCell>
           ))}
           {entityHeader.map(h => (

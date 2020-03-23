@@ -9,7 +9,11 @@ export default class SearchFilter extends React.Component<
 ISearchFilterProps
 > {
   private inputRef = React.createRef<HTMLDivElement>();
+  
   public render() {
+
+    console.log(this.props.searchTypes);
+
     const jsx = (
       <SelectFilter
         SearchTypeSelect={this.props.SearchTypeSelect}

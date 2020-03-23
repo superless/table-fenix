@@ -12,10 +12,11 @@ interface IProps {
 
 export default class SelectFilter extends React.Component<IProps> {
   public render() {
+    
     const typeSearch = this.props.searchTypes.map(st => ({
-      key: st.entitySearchTypeIndex,
+      key: st.name,
       text: st.name,
-      value: st.entitySearchTypeIndex
+      value: st.name
     }));
 
     return (
@@ -24,7 +25,7 @@ export default class SelectFilter extends React.Component<IProps> {
         basic={true}
         floating={true}
         options={typeSearch}
-        defaultValue={this.props.defaultValue.entitySearchTypeIndex}
+        defaultValue={this.props.defaultValue.name}
         onChange={this.SelectTypeSearch}
       />
     );
@@ -33,7 +34,7 @@ export default class SelectFilter extends React.Component<IProps> {
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
   ) => {
-    
-    this.props.SearchTypeSelect(this.props.searchTypes.filter(s=>s.entitySearchTypeIndex === (data.value as number))[0]);
+    console.log(event);
+    this.props.SearchTypeSelect(this.props.searchTypes.filter(s=>s.name === (data.value as string))[0]);
   };
 }

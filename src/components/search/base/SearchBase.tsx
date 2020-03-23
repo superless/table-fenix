@@ -5,7 +5,7 @@ import ISearchFilterBaseState from "./state/ISearchFilterBaseState";
 import * as _ from "lodash";
 
 import { ISearchCategoryModel } from "./model/types/ISearchCategoryModel";
-import ISearchBaseModel from "./model/types/ISearchBaseModel";
+import {ISearchBaseModel} from "./model/types/ISearchBaseModel";
 import SelectFilter from "../search_filter/SelectFilter";
 
 
@@ -15,7 +15,10 @@ export default class SearchBase extends React.Component<
 > {
   private searchRef = React.createRef<HTMLDivElement>();
 
+  
+
   public render() {
+  
     
     const jsx = (
       <SelectFilter
@@ -25,8 +28,8 @@ export default class SearchBase extends React.Component<
       />
     );
 
-    const { load, value, results, resultCategory } = this.state;
-    this.setState({...this.state, load: this.props.loading });
+    const { value, results, resultCategory, load } = this.state;
+    
     
     const placeHolder = this.props.placeholder;
     const map: { [key: string]: ISearchCategoryModel } = {};
@@ -37,13 +40,17 @@ export default class SearchBase extends React.Component<
       });
     }
 
+
+
+
+
     const resultLocal = this.props.isCategory ? map : results;
     
     return (
       <div ref={this.searchRef}>
         <Search
           category={this.props.isCategory}
-          loading={load}
+          loading={load || this.props.loading}
           size="large"
           onSearchChange={
             this.props.isCategory
@@ -92,15 +99,16 @@ export default class SearchBase extends React.Component<
     e: React.SyntheticEvent<Element>,
     data: SearchResultData
   ) => {
+
+    if (e == null) console.log(e);
     const value = data.result.id;
     this.setState({...this.state, value: data.result.title });
     // tslint:disable-next-line:no-unused-expression
-    this.props.elementSelected && this.props.elementSelected(value);
+    this.props.elementSelected && this.props.elementSelected(data.result as ISearchBaseModel);
     
   };
 
-  private handleSearchChange = (
-    e: React.SyntheticEvent<Element>,
+  private handleSearchChange = (    
     data: SearchProps
   ) => {
     const value = data.value;
@@ -121,20 +129,36 @@ export default class SearchBase extends React.Component<
     e: React.SyntheticEvent<Element>,
     data: SearchProps
   ) => {
+
+    if (e == null) console.log(e);
+
+
     const value = data.value;
+
     this.setState({ load: true, value });
 
-    const re = new RegExp(_.escapeRegExp(value), "i");
-    const isMatch = (result: ISearchBaseModel) => re.test(result.title);
 
+
+    const re = new RegExp(_.escapeRegExp(value), "i");
+
+    const isMatch = (result: ISearchBaseModel) => {
+      result.title;
+      return re.test(result.title);
+    }
+
+    
     const filteredResults = _.reduce(
       this.props.sourceCategory,
 
       // tslint:disable-next-line:no-shadowed-variable
       (memo, data, index) => {
+
+        
         const resultCategory = re.test(data.name);
 
+
         const result = _.filter(data.results, isMatch);
+        
 
         const ElemResult = {
           name: data.name,
@@ -147,7 +171,13 @@ export default class SearchBase extends React.Component<
         }
 
         if (ElemResult.results.length === 0) {
+          if(_.isEmpty(memo)){
+            return [];
+          }
+          
           const memos = [...(memo as ISearchCategoryModel[])];
+
+          
           if (index === 0) {
             return [];
           }
@@ -161,9 +191,10 @@ export default class SearchBase extends React.Component<
       {}
     ) as ISearchCategoryModel[];
 
+    
     this.setState({
       load: false,
-      resultCategory: filteredResults
+      resultCategory: filteredResults.length == undefined?[filteredResults as unknown as  ISearchCategoryModel] as ISearchCategoryModel[]:filteredResults 
     });
   };
 

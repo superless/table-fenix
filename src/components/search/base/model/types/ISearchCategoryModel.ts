@@ -1,4 +1,4 @@
-import ISearchBaseModel from "./ISearchBaseModel";
+import {ISearchBaseModel} from "./ISearchBaseModel";
 
 export interface ISearchCategoryModel {
   
@@ -6,4 +6,4 @@ export interface ISearchCategoryModel {
   results: ISearchBaseModel[];
 }
 
-export type SearchCategoryModel = Map<string, ISearchCategoryModel>;
+

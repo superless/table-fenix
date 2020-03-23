@@ -7,20 +7,6 @@ pool:
   vmImage: "ubuntu-latest"
 
 steps:
-
-
-        
-  - task: replacetokens@3
-    inputs:
-      targetFiles: '**/config.npmrc'
-      encoding: 'auto'
-      writeBOM: true
-      actionOnMissing: 'warn'
-      keepToken: false
-      tokenPrefix: '#{'
-      tokenSuffix: '}#'
-    displayName: 'reemplazando configuración'
-
   - task: NodeTool@0
     inputs:
       versionSpec: "12.x"

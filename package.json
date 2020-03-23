@@ -1,7 +1,7 @@
 {
   "name": "fenix-components",
   "description": "Componentes conectables de todo tipo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "license": "MIT",
@@ -42,7 +42,7 @@
     "pretest": "npm run build",
     "test:lint": "eslint ./src/**/*.ts ./src/**/*.tsx ./example/src/**/*.ts ./example/src/**/*.tsx",
     "test:lint:fix": "npm run test:lint -- --fix",
-    "refreshVSToken": "vsts-npm-auth -config .npmrc"
+    "vsToken": "vsts-npm-auth -config .npmrc"
   },
   "files": [
     "dist"

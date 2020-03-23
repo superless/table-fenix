@@ -13,12 +13,13 @@ export default [
     output: [
       { file: pkg.main, format: 'cjs' },
       { file: pkg.module, format: 'esm' },
-      {
-        file: './../trifenix.search.containers/src/components/temp_component/index.js',
-        format: 'es',
+       // descomentar para generar archivo.
+      // {
+      //   file: './../trifenix.search.containers/src/components/temp_component/index.js',
+      //   format: 'es',
         
-        banner: '/* eslint-disable */',
-      },
+      //   banner: '/* eslint-disable */',
+      // },
     ],
   },
 ];

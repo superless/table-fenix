@@ -9,7 +9,7 @@ pool:
 steps:
   - task: replacetokens@3
     inputs:
-      targetFiles: 'deploy/.nprc'
+      targetFiles: '**/deploy/.nprc'
       encoding: 'auto'
       writeBOM: true
       actionOnMissing: 'warn'

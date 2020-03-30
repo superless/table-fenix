@@ -1,11 +1,11 @@
-import { SearchType } from "tf-search-model";
+import { ISearchType } from "tf-search-model";
 
 
 
 export default interface ISearchFilterProps {
-  searchTypes: SearchType[];
-  defaultSearchType: SearchType;
-  SearchTypeSelect: (searchTypeIndex: SearchType) => void;
+  searchTypes: ISearchType[];
+  defaultSearchType: ISearchType;
+  SearchTypeSelect: (searchTypeIndex: ISearchType) => void;
   onEnter: (name: string) => void;
   loading:boolean;
 }

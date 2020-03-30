@@ -12,7 +12,6 @@ export interface ISearchFilterProps {
   source?: ISearchBaseModel[]; 
   sourceCategory?: ISearchCategoryModel[];
   loading : boolean;
-
 }
 
 export function SearchFenix (props: ISearchFilterProps) {

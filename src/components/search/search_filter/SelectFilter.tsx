@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Dropdown, DropdownProps } from "semantic-ui-react";
-import { SearchType } from "tf-search-model";
+import { ISearchType } from "tf-search-model";
 
 
 
 interface IProps {
-  SearchTypeSelect: (searchType: SearchType) => void;
-  searchTypes: SearchType[];
-  defaultValue: SearchType;
+  SearchTypeSelect: (searchType: ISearchType) => void;
+  searchTypes: ISearchType[];
+  defaultValue: ISearchType;
 }
 
 export default class SelectFilter extends React.Component<IProps> {

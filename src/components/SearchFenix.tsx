@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { SearchType } from 'tf-search-model';
+import { ISearchType, TypeEntity } from 'tf-search-model';
 import {ISearchBaseModel} from './search/base/model/types/ISearchBaseModel';
 import { ISearchCategoryModel } from './search/base/model/types/ISearchCategoryModel';
 import SearchFilter from "./search/search_custom/SearchFilter";
 import SearchBase from './search/base/SearchBase';
 
 export interface ISearchFilterProps {
-  searchTypes: SearchType[];
-  searchTypeSelect: (searchType: SearchType) => void;
+  searchTypes: ISearchType[];
+  searchTypeSelect: (searchType: ISearchType) => void;
   elementSelected: (name: ISearchBaseModel) => void; // evento de busqueda de acuerdo a lo ingresado
   source?: ISearchBaseModel[]; 
   sourceCategory?: ISearchCategoryModel[];
@@ -23,7 +23,7 @@ export function SearchFenix (props: ISearchFilterProps) {
 
   const [currentSearch, setCurrentsearch] = React.useState(defaultSearchTypes.length>0?defaultSearchTypes[0]:searchTypes[0]);
 
-  const searchSelected : (src:SearchType)=>void = (src)=>{
+  const searchSelected : (src:ISearchType)=>void = (src)=>{
     setCurrentsearch(src);
     searchTypeSelect(src);
   };
@@ -35,7 +35,7 @@ export function SearchFenix (props: ISearchFilterProps) {
 
   
   
-  if (currentSearch.entityType == "search"){
+  if (currentSearch.entityType == TypeEntity.SEARCH){
     return <SearchFilter 
               SearchTypeSelect={searchSelected} 
               loading={loading} 
@@ -44,7 +44,7 @@ export function SearchFenix (props: ISearchFilterProps) {
                
               searchTypes={searchTypes}/>
 
-  } else if (currentSearch.entityType == "selected"){
+  } else if (currentSearch.entityType == TypeEntity.SELECTED){
 
 
     return <SearchBase
@@ -61,7 +61,7 @@ export function SearchFenix (props: ISearchFilterProps) {
 
   } else {
 
-    console.log("sc",sourceCategory);
+    
     return <SearchBase
                 SearchTypeSelect={searchSelected}
                 defaultSearchType = {currentSearch}

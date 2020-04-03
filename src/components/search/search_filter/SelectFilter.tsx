@@ -14,9 +14,9 @@ export default class SelectFilter extends React.Component<IProps> {
   public render() {
     
     const typeSearch = this.props.searchTypes.map(st => ({
-      key: st.Name,
-      text: st.Name,
-      value: st.Name
+      key: st.name,
+      text: st.name,
+      value: st.name
     }));
 
     return (
@@ -25,7 +25,7 @@ export default class SelectFilter extends React.Component<IProps> {
         basic={true}
         floating={true}
         options={typeSearch}
-        defaultValue={this.props.defaultValue.Name}
+        defaultValue={this.props.defaultValue.name}
         onChange={this.SelectTypeSearch}
       />
     );
@@ -35,6 +35,6 @@ export default class SelectFilter extends React.Component<IProps> {
     data: DropdownProps
   ) => {
     console.log(event);
-    this.props.SearchTypeSelect(this.props.searchTypes.filter(s=>s.Name === (data.value as string))[0]);
+    this.props.SearchTypeSelect(this.props.searchTypes.filter(s=>s.name === (data.value as string))[0]);
   };
 }

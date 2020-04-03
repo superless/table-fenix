@@ -1,7 +1,7 @@
 {
   "name": "fenix-components",
   "description": "Componentes conectables de todo tipo",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "license": "MIT",
@@ -50,6 +50,6 @@
   "dependencies": {
     "@types/lodash": "^4.14.149",
     "lodash": "^4.17.15",
-    "tf-search-model": "^1.1.8"
+    "tf-search-model": "^1.1.9"
   }
 }

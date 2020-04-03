@@ -18,7 +18,7 @@ export function SearchFenix (props: ISearchFilterProps) {
   
   const {searchTypes, searchTypeSelect, loading, elementSelected, source, sourceCategory} = props;
 
-  const defaultSearchTypes = searchTypes.filter(s=>s.default);
+  const defaultSearchTypes = searchTypes.filter(s=>s.Default);
 
   const [currentSearch, setCurrentsearch] = React.useState(defaultSearchTypes.length>0?defaultSearchTypes[0]:searchTypes[0]);
 
@@ -34,7 +34,7 @@ export function SearchFenix (props: ISearchFilterProps) {
 
   
   
-  if (currentSearch.entityType == TypeEntity.SEARCH){
+  if (currentSearch.EntityType == TypeEntity.SEARCH){
     return <SearchFilter 
               SearchTypeSelect={searchSelected} 
               loading={loading} 
@@ -43,7 +43,7 @@ export function SearchFenix (props: ISearchFilterProps) {
                
               searchTypes={searchTypes}/>
 
-  } else if (currentSearch.entityType == TypeEntity.SELECTED){
+  } else if (currentSearch.EntityType == TypeEntity.SELECTED){
 
 
     return <SearchBase
@@ -52,8 +52,8 @@ export function SearchFenix (props: ISearchFilterProps) {
                 elementSelected = {elementSelected}
                 isCategory = {false}
                 loading = {loading}
-                messageNotFound={currentSearch.messageNotFound || "Elemento no encontrado"}
-                placeholder={currentSearch.placeHolder || "Seleccione un elemento"}
+                messageNotFound={currentSearch.MessageNotFound || "Elemento no encontrado"}
+                placeholder={currentSearch.PlaceHolder || "Seleccione un elemento"}
                 searchTypes={searchTypes}
                 source={source}
             />
@@ -67,8 +67,8 @@ export function SearchFenix (props: ISearchFilterProps) {
                 elementSelected = {elementSelected}
                 isCategory = {true}
                 loading = {loading}
-                messageNotFound={currentSearch.messageNotFound || "Elemento no encontrado"}
-                placeholder={currentSearch.placeHolder || "Seleccione un elemento"}
+                messageNotFound={currentSearch.MessageNotFound || "Elemento no encontrado"}
+                placeholder={currentSearch.PlaceHolder || "Seleccione un elemento"}
                 searchTypes={searchTypes}
                 sourceCategory={sourceCategory}
         />

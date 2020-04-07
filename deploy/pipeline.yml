@@ -2,15 +2,34 @@ trigger:
   branches:
     include:
       - master
+      - develop
+      - release/*
+      - hotfix/*
 
 pool:
   vmImage: "ubuntu-latest"
 
 steps:
+  - task: UseGitVersion@5
+    inputs:
+      versionSpec: "5.x"
+      includePrerelease: true
+      useConfigFile: true
+      configFilePath: "deploy/gitConfig.yml"
+
   - task: NodeTool@0
     inputs:
       versionSpec: "12.x"
     displayName: "Install Node.js"
+
+  - task: Npm@1
+    inputs:
+      command: "custom"
+      customCommand: "--no-git-tag-version version $(GitVersion.MajorMinorPatch)$(GitVersion.PreReleaseTagWithDash)"
+
+  - task: CmdLine@2
+    inputs:
+      script: "cat package.json"
 
   - task: CopyFiles@2
     inputs:

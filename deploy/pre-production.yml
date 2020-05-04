@@ -6,6 +6,8 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
+  
+
 steps:
   - task: UseGitVersion@5
     inputs:

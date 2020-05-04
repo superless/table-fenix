@@ -2,7 +2,7 @@ trigger:
   branches:
     include:
       - develop
-      - hotfix/*
+      - release/*
 
 pool:
   vmImage: "ubuntu-latest"

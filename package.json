@@ -24,8 +24,7 @@
     "rollup-plugin-typescript2": "^0.25.2",
     "ts-node": "^8.5.2",
     "tslib": "^1.10.0",
-    "typescript": "^3.7.2",
-    "tf-search-model": "^1.5.1"
+    "typescript": "^3.7.2"
   },
   "peerDependencies": {
     "react": "^16.12.0",
@@ -50,6 +49,7 @@
   ],
   "dependencies": {
     "@types/lodash": "^4.14.149",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "tf-search-model": "^1.5.1"
   }
 }

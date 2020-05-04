@@ -23,7 +23,7 @@ steps:
   - task: Npm@1
     inputs:
       command: "custom"
-      customCommand: "--no-git-tag-version version $(GitVersion.MajorMinorPatch)$(GitVersion.PreReleaseTagWithDash)"
+      customCommand: "--no-git-tag-version version $(GitVersion.MajorMinorPatch)$(GitVersion.PreReleaseTagWithDash).build.$(Build.BuildId)"
 
   - task: CopyFiles@2
     inputs:

@@ -2,9 +2,6 @@ trigger:
   branches:
     include:
       - master
-      - develop
-      - release/*
-      - hotfix/*
 
 pool:
   vmImage: "ubuntu-latest"
@@ -25,7 +22,7 @@ steps:
   - task: Npm@1
     inputs:
       command: "custom"
-      customCommand: "--no-git-tag-version version $(GitVersion.MajorMinorPatch)$(GitVersion.PreReleaseTagWithDash)"
+      customCommand: "--no-git-tag-version version $(GitVersion.MajorMinorPatch)"
 
   - task: CmdLine@2
     inputs:

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ISearchType, TypeEntity } from 'tf-search-model';
+import { ISearchType, TypeEntity } from '@fenix/tf-search-model';
 import {ISearchBaseModel} from './search/base/model/types/ISearchBaseModel';
 import { ISearchCategoryModel } from './search/base/model/types/ISearchCategoryModel';
 import SearchFilter from "./search/search_custom/SearchFilter";

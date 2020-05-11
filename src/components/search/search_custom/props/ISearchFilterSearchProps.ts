@@ -1,4 +1,4 @@
-import { ISearchType } from "tf-search-model";
+import { ISearchType } from "@fenix/tf-search-model";
 
 
 

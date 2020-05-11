@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Dropdown, DropdownProps } from "semantic-ui-react";
-import { ISearchType } from "tf-search-model";
+import { ISearchType } from "@fenix/tf-search-model";
 
 
 

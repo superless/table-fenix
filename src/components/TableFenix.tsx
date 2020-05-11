@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IResult, IEntitySearch, Related } from "tf-search-model";
+import { IResult, IEntitySearch, Related } from "@fenix/tf-search-model";
 import { Table} from 'semantic-ui-react';
 import _ from 'lodash';
 

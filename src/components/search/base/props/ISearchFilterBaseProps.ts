@@ -1,6 +1,6 @@
 import {ISearchBaseModel} from "../model/types/ISearchBaseModel";
 import { ISearchCategoryModel } from "../model/types/ISearchCategoryModel";
-import { ISearchType } from "tf-search-model";
+import { ISearchType } from "@fenix/tf-search-model";
 
 
 

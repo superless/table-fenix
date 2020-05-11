@@ -49,6 +49,7 @@
     "dist"
   ],
   "dependencies": {
+    "@fenix/tf-search-model": "^1.6.0-alpha.34.build.63",
     "@types/lodash": "^4.14.149",
     "lodash": "^4.17.15"
   }

@@ -12,7 +12,7 @@ ISearchFilterProps
   
   public render() {
 
-    console.log(this.props.searchTypes);
+    
 
     const jsx = (
       <SelectFilter

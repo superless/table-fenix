@@ -31,10 +31,10 @@ export default class SelectFilter extends React.Component<IProps> {
     );
   }
   private SelectTypeSearch = (
-    event: React.SyntheticEvent<HTMLElement>,
+    e: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
   ) => {
-    console.log(event);
+    if (e == null) console.log(e);
     this.props.SearchTypeSelect(this.props.searchTypes.filter(s=>s.name === (data.value as string))[0]);
   };
 }

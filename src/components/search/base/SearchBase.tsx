@@ -104,7 +104,7 @@ export default class SearchBase extends React.Component<
     
     this.setState({...this.state, value: data.result.title });
 
-    console.log(data.result);
+    
     // tslint:disable-next-line:no-unused-expression
     this.props.elementSelected && this.props.elementSelected(data.result as ISearchBaseModel);
     
@@ -115,7 +115,7 @@ export default class SearchBase extends React.Component<
     data: SearchProps
   ) => {
 
-    if (e == null) console.log(e);    
+    if (e == null) console.log(e); 
     const value = data.value;
     this.setState({ load: true, value });
 

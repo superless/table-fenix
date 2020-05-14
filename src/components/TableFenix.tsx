@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { IResult, IEntitySearch, Related } from "@fenix/tf-search-model";
 import { Table, Pagination, PaginationItemProps, Segment, Button } from 'semantic-ui-react';
+import moment from "moment";
+
 import _ from 'lodash';
 
 
@@ -8,6 +10,7 @@ export interface ITableFenixProps {
   elements?: IResult;  
   headerRelated: (header: number) => string;
   headerProperty: (header: number, typeRelated: Related) => string;
+  enumValue:(indexEnun:number, valueEnum: number )=>string;
   selectPage?: (page: number) => void;
   itemPerPage : number;
   cellheaders? :JSX.Element[];
@@ -27,32 +30,32 @@ function GetEntityHeaders(entities: IEntitySearch[], header: (header: number) =>
 function GetPropHeaders(entities: IEntitySearch[], typeRelated: Related, header: (header: number, typeRelated: Related) => string) {
 
   
-  let headersProperties: Number[] = [];
+  let headersProperties: number[] = [];
 
   switch (typeRelated) {
     case Related.SUGGESTION:
-      headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.sug.map(s => s.propertyIndex)], []);
+      headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.sug.map(s => s.propertyIndex)], []);
       break;
     case Related.STR:
-      headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.str.map(s => s.propertyIndex)], []);
+      headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.str.map(s => s.propertyIndex)], []);
       break;
     case Related.BOOL:
-      headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.bl.map(s => s.propertyIndex)], []);
+      headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.bl.map(s => s.propertyIndex)], []);
       break;
     case Related.NUM32:
-      headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.num32.map(s => s.propertyIndex)], []);
+      headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.num32.map(s => s.propertyIndex)], []);
       break;
     case Related.NUM64:
-      headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.num64.map(s => s.propertyIndex)], []);
+      headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.num64.map(s => s.propertyIndex)], []);
       break;
     case Related.DATE:
-      headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.dt.map(s => s.propertyIndex)], []);
+      headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.dt.map(s => s.propertyIndex)], []);
       break;
     case Related.DBL:
-      headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.dbl.map(s => s.propertyIndex)], []);
+      headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.dbl.map(s => s.propertyIndex)], []);
       break;
     case Related.ENUM:
-      headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.enum.map(s => s.propertyIndex)], []);
+      headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.enum.map(s => s.propertyIndex)], []);
       break;
     // case Related.GEO :
     //   headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.geo.map(s => s.propertyIndex)], []);
@@ -80,7 +83,7 @@ export default function TableFenix(props: ITableFenixProps) {
   //const geoHeaders = GetPropHeaders(entities, Related.GEO, props.headerProperty);
   const RelatedHeaders = GetEntityHeaders(entities, props.headerRelated);
   
-
+  console.log("component");
   const tableHeader = (name: string, index: Number, related: Related) => {
     const relatedNum = related as number;
     return (<Table.HeaderCell key={`${relatedNum}.${index}`} textAlign='center'>
@@ -96,7 +99,7 @@ export default function TableFenix(props: ITableFenixProps) {
 
   
 
-
+  console.log(enumHeaders);
   return (
     <>
       <Table compact celled selectable color='violet'>
@@ -142,10 +145,10 @@ export default function TableFenix(props: ITableFenixProps) {
                 <Table.Cell textAlign='center' key={`${Related.BOOL as number}.${h.index}_${entity.id}`}> {entity.bl.filter(e => e.propertyIndex === h.index).length > 0 ? entity.bl.filter(e => e.propertyIndex === h.index)[0].value : ""}</Table.Cell>
               ))}
               {enumHeaders.map(h => (
-                <Table.Cell textAlign='center' key={`${Related.ENUM as number}.${h.index}_${entity.id}`}> {entity.enum.filter(e => e.propertyIndex === h.index).length > 0 ? entity.enum.filter(e => e.propertyIndex === h.index)[0].value : ""}</Table.Cell>
+                <Table.Cell textAlign='center' key={`${Related.ENUM as number}.${h.index}_${entity.id}`}> {entity.enum.filter(e => e.propertyIndex === h.index).length > 0 ? props.enumValue(h.index, entity.enum.filter(e => e.propertyIndex === h.index)[0].value) : ""}</Table.Cell>
               ))}
               {dtHeaders.map(h => (
-                <Table.Cell textAlign='center' key={`${Related.DATE as number}.${h.index}_${entity.id}`}> {entity.dt.filter(e => e.propertyIndex === h.index).length > 0 ? entity.dt.filter(e => e.propertyIndex === h.index)[0].value : ""}</Table.Cell>
+                <Table.Cell textAlign='center' key={`${Related.DATE as number}.${h.index}_${entity.id}`}> {entity.dt.filter(e => e.propertyIndex === h.index).length > 0 ? moment(entity.dt.filter(e => e.propertyIndex === h.index)[0].value).format("DD-MM-yyyy HH:mm") : ""}</Table.Cell>
               ))}
               {/* {geoHeaders.map(h => (
               <Table.Cell textAlign='center' key={`${Related.GEO as number}.${h.index}_${entity.id}`}> {entity.geo.filter(e => e.propertyIndex === h.index).length > 0 ? entity.geo.filter(e => e.propertyIndex === h.index)[0].value : ""}</Table.Cell>

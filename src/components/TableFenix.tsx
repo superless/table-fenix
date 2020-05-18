@@ -6,9 +6,19 @@ import moment from "moment";
 import _ from 'lodash';
 
 
+/**
+ * Propiedades de table fenix.
+ */
 export interface ITableFenixProps {
-  elements?: IResult;  
-  headerRelated: (header: number) => string;
+
+  /** elementos a cargar en la tabka */
+  elements?: IResult;  // elementos del search
+  headerRelated: (header: number) => string; 
+
+  /**Envíar
+   * 
+   * @param {number} header índice de la cabecera
+   */
   headerProperty: (header: number, typeRelated: Related) => string;
   enumValue:(indexEnun:number, valueEnum: number )=>string;
   selectPage?: (page: number) => void;

@@ -7,6 +7,7 @@ export interface IFilterMenuProps {
     filterlist: IEntityNameId[];
     title:string;
     select: (sel: string[]) => void;
+    selected?: string[];
     filtered?:boolean;
     
 }
@@ -23,14 +24,17 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
 
     constructor(props: IFilterMenuProps) {
         super(props);
+
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleClickAll = this.handleClickAll.bind(this);
         this.cancelPressButton = this.cancelPressButton.bind(this);
         this.clickVisibleFilter = this.clickVisibleFilter.bind(this);
         this.selectFilterItem = this.selectFilterItem.bind(this);
+        this.filter = this.filter.bind(this);
+
         this.state = {
             visible : false,
-            selected : []
+            selected : props.selected || []
         }
         
     }
@@ -48,8 +52,6 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
                 onClick={this.clickVisibleFilter}
                 disabled={false}
                 closeOnEscape={true}
-                
-                
             >
                 <Dropdown.Menu>
                     <Dropdown.Header content='Ordenar' />
@@ -67,7 +69,7 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
                     <Dropdown.Divider />
                     <Dropdown.Header>
                         <Button negative content={'Cancelar'} onClick={this.cancelPressButton} />
-                        <Button color={"teal"} content={'Filtrar'} disabled={false} />
+                        <Button color={"teal"} content={'Filtrar'} disabled={selected.length === 0} onClick={this.filter} />
                     </Dropdown.Header>
                 </Dropdown.Menu>
             </Dropdown>            
@@ -75,11 +77,15 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
         );
     }
 
-    
 
+    filter(){
+        this.props.select(this.state.selected);
+        this.setState({...this.state, visible : false});
+    }
+
+    
     selectFilterItem(event: React.FormEvent<HTMLInputElement>, data: CheckboxProps){
-        event.preventDefault();
-        console.log(this.state);
+        event.preventDefault();        
         if(data.checked){
             this.setState({...this.state, selected:[...this.state.selected, data.value as string]});
         } else {
@@ -93,13 +99,17 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
 
     clickVisibleFilter(){
         if(!this.state.visible){
-            this.setState({...this.state, visible : !this.state.visible});
+            this.setState({...this.state, visible : true});
         }
     }
 
     handleClickAll(event: React.FormEvent<HTMLInputElement>, data: CheckboxProps){
-        event.preventDefault();
-        console.log(data.checked);
+      event.preventDefault();
+      if(data.checked){
+        this.setState({...this.state, selected: this.props.filterlist.map(s=>s.index)});
+      } else {
+        this.setState({...this.state, selected: []});
+      }
     }
 
     componentDidMount() {

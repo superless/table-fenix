@@ -2,6 +2,7 @@ import * as React from 'react';
 import ITableHeaderProps from "./props/ITableHeaderProps";
 import { Table } from "semantic-ui-react";
 import FilterMenu from '../filter_header/FilterMenu';
+import { IEntityNameId } from '../../model';
 
 
 
@@ -18,7 +19,7 @@ import FilterMenu from '../filter_header/FilterMenu';
     // retorna la cabecera.
     return <Table.HeaderCell key={`${relatedNum}.${index}`} textAlign='center'>
       
-      {filter?(<FilterMenu filterlist={[{index:"1", title:"filtro 1"}, {index:"2", title:"filtro 2"}, {index:"3", title:"filtro 3"}]} select={sel=>{console.log(sel)}} title={title}/>):<span>{title}</span>}
+      {filter?(<FilterMenu filterlist={props.filterList || []} selected={props.selected} select={props.select as (sel:string[])=>void} title={title}/>):<span>{title}</span>}
     </Table.HeaderCell>
   }
 

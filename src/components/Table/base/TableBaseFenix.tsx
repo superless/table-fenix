@@ -6,13 +6,20 @@ import TableHeader from './components/header/TableHeader';
 import TableCell from './components/cell/TableCell';
 import { ITableBaseFenixProps } from './props/ITableBaseFenixProps';
 import { Table, Segment, Pagination, PaginationItemProps } from 'semantic-ui-react';
+import { IEntityNameId } from './model';
 
+
+
+export interface ITableBaseFenixState {
+    filtersValues? : {[key:number]:IEntityNameId[]};
+    filtersSelected? : {[key:number]:string[]}
+}
 
 
 /**
  * Tabla basada en EntitySearchs.
  */
-export default class TableBaseFenix extends React.Component<ITableBaseFenixProps>{
+export default class TableBaseFenix extends React.Component<ITableBaseFenixProps, ITableBaseFenixState>{
 
   /**
   * Tabla basada en EntitySearchs.
@@ -21,6 +28,14 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
   constructor(props: ITableBaseFenixProps) {
     super(props);
     this.setPaginationValue = this.setPaginationValue.bind(this);
+    this.setFilters = this.setFilters.bind(this);
+    this.state= {
+      filtersValues : props.filtersValues, 
+      filtersSelected : props.filtersSelected
+    };
+    this.getEntityFilters = this.getEntityFilters.bind(this);
+    this.getEntitySelected = this.getEntitySelected.bind(this);
+    
   }
 
   public render() {
@@ -54,7 +69,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
               {enumHeaders.map(h => (<TableHeader {...h} related={Related.ENUM} />))}
               {dtHeaders.map(h => (<TableHeader {...h} related={Related.DATE} />))}
               {/* {geoHeaders.map(h => tableHeader(h.title, h.index, Related.GEO) )} */}
-              {RelatedHeaders.map(h => (<TableHeader {...h} related={Related.REFERENCE} filter={this.props.filter} />))}
+              {RelatedHeaders.map(h => (<TableHeader {...h} related={Related.REFERENCE} filter={this.props.filter} filterList={this.getEntityFilters(h.index)} selected={this.getEntitySelected(h.index)} select={selecteds=>this.setFilters(h.index, selecteds)}  />))}
               {this.props.cellheaders && this.props.cellheaders.map(ch => (
                 <Table.HeaderCell textAlign='center' >{ch}</Table.HeaderCell>
               ))}
@@ -115,6 +130,21 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
       </>
     );
   }
+
+  setFilters(index:number, entities: string[]){
+    this.props.filters && this.props.filters(index, entities);
+  }
+
+  getEntityFilters(index : number) : IEntityNameId[]{
+    return (this.state.filtersValues && this.state.filtersValues[index]) ?? [];
+  }
+
+  getEntitySelected(index : number) : string[]{
+    return (this.state.filtersSelected && this.state.filtersSelected[index])?? [];
+  }
+
+  
+
 
   /**
    * envía a la propiedad de selección de página, la página activa.   * 

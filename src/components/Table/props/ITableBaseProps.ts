@@ -1,4 +1,5 @@
 import { IResult, IEntitySearch, Related } from "@fenix/tf-search-model";
+import { IEntityNameId } from "../base/model";
 /**
  * Propiedades de table fenix.
  */
@@ -47,6 +48,22 @@ export interface ITableBaseProps {
    * JSX para renderizar cada celda recibiendo como entrada la entidad que corresponde a la fila.
   */
   cells?: ((elem: IEntitySearch) => JSX.Element)[];
+
+
+  /**
+   * asigna un diccionario con las entidades de la tabla y los valores disponible para el filtro
+   */
+  filtersValues? : {[key:number]:IEntityNameId[]};
+
+  /**
+   * asigna los valores que han sido seleccionados en los filtros.
+   */
+  filtersSelected? : {[key:number]:string[]}
+
+  filters? : (index:number, selecteds:string[])=>void;
+
+
+
 
   
 }

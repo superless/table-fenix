@@ -63,6 +63,8 @@ export interface ITableBaseProps {
   filters? : (index:number, selecteds:string[])=>void;
 
 
+  clean: ()=>void;
+
 
 
   

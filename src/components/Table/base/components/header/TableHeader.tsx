@@ -15,7 +15,7 @@ import { IEntityNameId } from '../../model';
   export default function TableHeader(props : ITableHeaderProps){
     const {related, index, title,filter} = props;
     const relatedNum = related as number;
-
+    
     // retorna la cabecera.
     return <Table.HeaderCell key={`${relatedNum}.${index}`} textAlign='center'>
       

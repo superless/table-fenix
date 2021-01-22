@@ -46,7 +46,7 @@ import { IEntityNameIndex } from "../../components/Table/base/model";
     }
   
     if (headersProperties.length  == 0) return [];
-  
+    // usa el método para retornar el índice y el nombre de cada cabecera encontrada.
     const distinct = headersProperties.filter((n, i) => headersProperties.indexOf(n) === i); // distinct ids del header.
     return distinct.map(s => ({ index: s, title: header(s as number, typeRelated) }  as IEntityNameIndex  ) ); // colección con id y nombre, usando la función de header
 }

@@ -12,7 +12,8 @@ export interface ITableBaseProps {
 
   headerRelated: (header: number) => string;
   
-  filter : boolean;
+  visible : boolean;
+  
   /**
    * Renderiza el título de la cabecera de acuerdo al índice de un typeSearch
    * y el tipo de typeSearch  (STR, DT, BL, GEO, NUM, etc.) y
@@ -60,9 +61,12 @@ export interface ITableBaseProps {
    */
   filtersSelected? : {[key:number]:string[]}
 
+  /**
+   * evento de filtro, que índica el índice de la cabecera y los elementos seleccionados.
+   */
   filters? : (index:number, selecteds:string[])=>void;
 
-
+  // limpia el filtro.
   clean: ()=>void;
 
 

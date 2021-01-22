@@ -92,7 +92,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
                 <TableHeader
                   {...h}
                   related={10}
-                  filter={this.props.filter}
+                  visible={this.props.visible}
                   filterList={this.getEntityFilters(h.index)}
                   selected={this.getEntitySelected(h.index)}
                   select={selecteds => this.setFilters(h.index, selecteds)}
@@ -182,7 +182,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
 
                 {RelatedHeaders.map((h, i) => (
                   <TableCell
-                    related={10}
+                    related={"related"}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -207,14 +207,32 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
     );
   }
 
+
+  /**
+   * asigna los filtros
+   * @param índice del filtro a asignar
+   * @param filtros seleccionados
+   */
   setFilters(index: number, entities: string[]) {
     this.props.filters && this.props.filters(index, entities);
   }
 
+
+  /**
+   * Obtiene todos los elementos del filtro
+   * @param índice de la cabecera donde se encuentra el filtro 
+   * @returns filtros seleccionados.
+   */
   getEntityFilters(index: number): IEntityNameId[] {
     return (this.props.filtersValues && this.props.filtersValues[index]) ?? [];
   }
 
+  
+  /**
+   * Obtiene los elementos seleccionados del filtro.
+   * @param índice de la cabecera donde se encuentra el filtro 
+   * @returns filtros seleccionados.
+   */
   getEntitySelected(index: number): string[] {
     return (this.state.filtersSelected && this.state.filtersSelected[index]) ?? [];
   }

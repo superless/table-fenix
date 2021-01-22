@@ -3,35 +3,57 @@ import { Dropdown, Button, Checkbox, CheckboxProps, Segment, Label, Icon } from 
 import { IEntityNameId } from '../../model';
 
 
+/**
+ * Propiedades del filtro de la tabla,
+ * filterlist, es el listado de posibles elementos a seleccionar con su índice y su nombre
+ * title, es el título de la columna del filtro.
+ * select, es el método de selección.
+ * selected, es el elemento seleccionado
+ * filtered, representa si el filtro ha sido usado o no.
+ */
 export interface IFilterMenuProps {
-    filterlist: IEntityNameId[];
+    filterlist: IEntityNameId[]; 
     title:string;
     select: (sel: string[]) => void;
     selected?: string[];
     filtered?:boolean;
-    
 }
 
+
+
+/**
+ * Estado del menú,
+ * determina si es visible o no y los elementos seleccionados.
+ */
 export interface IFilterMenuState {
     selected: string[];
     visible: boolean;
 
 }
 
+
+/**
+ * Filter menu, es un componente de react para ser usada como filtro en una cabecera de una tabla
+ */
 export default class FilterMenu extends React.Component<IFilterMenuProps, IFilterMenuState> {
+
+    // referencia interna para manejar eventos
     private wrapperRef = React.createRef<HTMLDivElement>();
 
 
     constructor(props: IFilterMenuProps) {
         super(props);
-
+        // eventos
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleClickAll = this.handleClickAll.bind(this);
         this.cancelPressButton = this.cancelPressButton.bind(this);
         this.clickVisibleFilter = this.clickVisibleFilter.bind(this);
         this.selectFilterItem = this.selectFilterItem.bind(this);
+
+        // filtro
         this.filter = this.filter.bind(this);
 
+        // inicialmente no está visible. 
         this.state = {
             visible : false,
             selected : props.selected || []
@@ -42,11 +64,12 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
     
 
     public render() {
-        const { filterlist, select } = this.props;
+        const { filterlist } = this.props; // colección de índice y nombre.
         const { visible, selected } = this.state;
-        const colorIcon = this.props.filtered?"red":"";
+        const colorIcon = this.props.filtered?"red":""; // asigna el color del ícono, cuando el filtro es seleccionado.
         return (
-            <div ref={this.wrapperRef}>
+            
+            <div ref={this.wrapperRef}>{/* usamos el div para asignar los eventos */}
                 <Dropdown 
                 icon={`filter ${colorIcon}`} open={visible} text={this.props.title}
                 onClick={this.clickVisibleFilter}
@@ -55,11 +78,13 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
             >
                 <Dropdown.Menu>
                     <Dropdown.Header content='Ordenar' />
+                    {/* botones sin funcionamiento aún. */}
                     <Dropdown.Header><Button size='mini' icon={'sort alphabet ascending'} /><Button size='mini' icon={'sort alphabet descending'} /></Dropdown.Header>
                     <Dropdown.Header content='Filtros' />
                     <Dropdown.Divider />
                     <Dropdown.Header><Checkbox onChange={this.handleClickAll} label={'Selecionar todas'} /></Dropdown.Header>
                     <Dropdown.Divider />
+                    {/* listamos los id y nombre de la colección de elementos filtrados o todos si aún no se ha filtrado */}
                     <Dropdown.Menu scrolling={true}>
                              {filterlist.map(s => (
                             <Dropdown.Item key={s.index} >
@@ -77,13 +102,21 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
         );
     }
 
-
+    
+    /**
+     * Asigna el valor de la propiedad en el estado.
+     */
     filter(){
         this.props.select(this.state.selected);
         this.setState({...this.state, visible : false});
     }
 
     
+    /**
+     * selección de un elemento en el filtro.
+     * @param evento nativo html 
+     * @param selección del checkbox.
+     */
     selectFilterItem(event: React.FormEvent<HTMLInputElement>, data: CheckboxProps){
         event.preventDefault();        
         if(data.checked){
@@ -93,16 +126,31 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
         }
     }
 
+
+    /**
+     * Limpia el filtro
+     */
     cancelPressButton(){
         this.setState({...this.state, visible : false});
     }
 
+
+
+    /**
+     * evento de selección del filtro, asignando el estado visible.
+     */
     clickVisibleFilter(){
         if(!this.state.visible){
             this.setState({...this.state, visible : true});
         }
     }
 
+
+    /**
+     * Click en selección de todos los elementos.
+     * @param evento nativo html 
+     * @param  los datos del checkbox que determinan si está o no seleccionado.
+     */
     handleClickAll(event: React.FormEvent<HTMLInputElement>, data: CheckboxProps){
       event.preventDefault();
       if(data.checked){
@@ -112,17 +160,26 @@ export default class FilterMenu extends React.Component<IFilterMenuProps, IFilte
       }
     }
 
+    /**
+     * Añade el evento al documento, para poder realizar operaciones al salir del 
+     * div del filtro.
+     */
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutside);
     }
 
+
+
+    /**
+     * Desmonta el evento que bloquea la página al usar el filtro.
+     */
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
 
     /**
-     * Alert if clicked on outside of element
+     * si el elemento seleccionado no es el filtro, deja el filtro oculto.
      */
     handleClickOutside(event : MouseEvent) {
         if (this.wrapperRef) {

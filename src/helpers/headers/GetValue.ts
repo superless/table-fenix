@@ -9,7 +9,7 @@ import moment from "moment";
  * @param entity Objeto de la entidad, de donde sacaremos los valores.
  * @param enumValue función que retornará el valor de una enumeración de acuerdo al id de un typeSearch de tipo enumeración y el valor de la enumeración. 
  */
-const GetValue: (headerIndex:number, related:KindProperty , entity:EntityBaseSearch<GeoPointTs>, enumValue?: (indexEnun: number, valueEnum: number ) => string)=>string = (headerIndex, related , entity, enumValue)=>{
+const GetValue: (headerIndex:number, related:KindProperty | "related" , entity:EntityBaseSearch<GeoPointTs>, enumValue?: (indexEnun: number, valueEnum: number ) => string)=>string = (headerIndex, related , entity, enumValue)=>{
     
     
     // tipo de searchType

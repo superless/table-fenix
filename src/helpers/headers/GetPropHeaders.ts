@@ -1,4 +1,4 @@
-import { IEntitySearch, Related } from "@fenix/tf-search-model";
+import { EntityBaseSearch, GeoPointTs, KindProperty } from "@trifenix/mdm";
 import { IEntityNameIndex } from "../../components/Table/base/model";
 
 /**
@@ -8,38 +8,38 @@ import { IEntityNameIndex } from "../../components/Table/base/model";
    * @param typeRelated Tipo de EntitySearch
    * @param header función que retorna el nombre del título de acuerdo al indice de la propiedad.
    */
-  const GetPropHeaders : (entities: IEntitySearch[], typeRelated: Related, header: (header: number, typeRelated: Related) => string)  => IEntityNameIndex[] = (entities, typeRelated, header)=>{
+  const GetPropHeaders : (entities: EntityBaseSearch<GeoPointTs>[], typeRelated: KindProperty, header: (header: number, typeRelated: KindProperty) => string)  => IEntityNameIndex[] = (entities, typeRelated, header)=>{
     // listado de ids de cabecera vacio
     let headersProperties: number[] = [];
   
     // tipo de searchType
     switch (typeRelated) {
       // otiene los indices que existen en el listado de entidades de a acuerdo el tipo.
-      case Related.SUGGESTION:
+      case KindProperty.SUGGESTION:
         
-        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.sug.map(s => s.propertyIndex)], []);
+        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.sug.map(s => s.index)], []);
         break;
-      case Related.STR:
+      case KindProperty.STR:
         
-        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.str.map(s => s.propertyIndex)], []);
+        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.str.map(s => s.index)], []);
         break;
-      case Related.BOOL:
-        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.bl.map(s => s.propertyIndex)], []);
+      case KindProperty.BOOL:
+        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.bl.map(s => s.index)], []);
         break;
-      case Related.NUM32:
-        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.num32.map(s => s.propertyIndex)], []);
+      case KindProperty.NUM32:
+        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.num32.map(s => s.index)], []);
         break;
-      case Related.NUM64:
-        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.num64.map(s => s.propertyIndex)], []);
+      case KindProperty.NUM64:
+        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.num64.map(s => s.index)], []);
         break;
-      case Related.DATE:
-        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.dt.map(s => s.propertyIndex)], []);
+      case KindProperty.DATE:
+        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.dt.map(s => s.index)], []);
         break;
-      case Related.DBL:
-        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.dbl.map(s => s.propertyIndex)], []);
+      case KindProperty.DBL:
+        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.dbl.map(s => s.index)], []);
         break;
-      case Related.ENUM:
-        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.enum.map(s => s.propertyIndex)], []);
+      case KindProperty.ENUM:
+        headersProperties = entities.reduce((pn: number[], u) => [...pn, ...u.enm.map(s => s.index)], []);
         break;
       // case Related.GEO :
       //   headersProperties = entities.reduce((pn: Number[], u) => [...pn, ...u.geo.map(s => s.propertyIndex)], []);

@@ -1,11 +1,11 @@
-import { IResult, IEntitySearch, Related } from "@fenix/tf-search-model";
+import { CollectionResult, EntityBaseSearch, GeoPointTs, KindProperty } from "@trifenix/mdm";
 import { IEntityNameId } from "../base/model";
 /**
  * Propiedades de table fenix.
  */
 export interface ITableBaseProps {
   /** elementos a cargar en la tabla */
-  elements?: IResult;
+  elements?: CollectionResult;
   /**
    * Renderiza la cabecera
    */
@@ -21,7 +21,7 @@ export interface ITableBaseProps {
    * @param {Related} typeRelated tipo de cabecera.
    * @returns {string} el nombre de la cabecera.
    */
-  headerProperty: (header: number, typeRelated: Related) => string;
+  headerProperty: (header: number, typeRelated: KindProperty) => string;
   /**
    * muestra el valor de una enumeración de acuerdo al índice de propiedad correspondiente a typeSearch de tipo enumeración dentro del entitySearch.
    * @param {number} indexEnun índice del typeSearch de tipo ENUM dentro de una entidad (EntitySearch).
@@ -47,7 +47,7 @@ export interface ITableBaseProps {
   /**
    * JSX para renderizar cada celda recibiendo como entrada la entidad que corresponde a la fila.
   */
-  cells?: ((elem: IEntitySearch) => JSX.Element)[];
+  cells?: ((elem: EntityBaseSearch<GeoPointTs>) => JSX.Element)[];
 
 
   /**

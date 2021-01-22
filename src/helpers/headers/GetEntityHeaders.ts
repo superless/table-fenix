@@ -1,4 +1,4 @@
-import { IEntitySearch } from "@fenix/tf-search-model";
+import { EntityBaseSearch, GeoPointTs } from "@trifenix/mdm";
 import { IEntityNameIndex } from "../../components/Table/base/model";
 
 /**
@@ -10,9 +10,9 @@ import { IEntityNameIndex } from "../../components/Table/base/model";
  * @param header función que recibe el índice de una cabecera y retorna el nombre
  * @returns {object} { index: indice de la cabecera, name: nombre que mostrará en la cabecera }
  */
-const GetEntityHeaders : (entities: IEntitySearch[], header: (header: number) => string) => IEntityNameIndex[] = (entities, header)=>{
+const GetEntityHeaders : (entities: EntityBaseSearch<GeoPointTs>[], header: (header: number) => string) => IEntityNameIndex[] = (entities, header)=>{
     // obtiene los indices de propiedad de todos los typeSearch de tipo entidad.
-    let headersRelated = entities.reduce((pn: Number[], u) => [...pn, ...u.rel.filter(a => a.name !== "").map(s => s.entityIndex)], []);
+    let headersRelated = entities.reduce((pn: Number[], u) => [...pn, ...u.rel.map(s => s.index)], []);
   
     // retorna el indice de propiedad y el nombre de la cabecera.
     return headersRelated.filter((n, i) => headersRelated.indexOf(n) === i).map(s => ({ index: s, title: header(s as number) } as IEntityNameIndex));

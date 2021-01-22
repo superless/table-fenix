@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Related } from '@fenix/tf-search-model';
+import { CollectionResult, EntityBaseSearch, GeographyProperty, GeoPointTs, KindProperty } from '@trifenix/mdm';
 import _ from 'lodash';
 import { GetPropHeaders, GetEntityHeaders } from '../../../helpers/headers';
 import TableHeader from './components/header/TableHeader';
@@ -33,18 +33,18 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
 
   public render() {
     // inicializa entidades.
-    let entities = !this.props.elements ? [] : this.props.elements.entities;
+    let entities = this.props.elements?.entities ?? [] as EntityBaseSearch<GeoPointTs>[];
 
     // obtiene cabeceras de acuerdo al tipo de typeSearch, las entidades y el método que retorna el título en base al indice.
-    const suggestHeaders = GetPropHeaders(entities, Related.SUGGESTION, this.props.headerProperty);
-    const strHeaders = GetPropHeaders(entities, Related.STR, this.props.headerProperty);
-    const num32Headers = GetPropHeaders(entities, Related.NUM32, this.props.headerProperty);
-    const num64Headers = GetPropHeaders(entities, Related.NUM64, this.props.headerProperty);
-    const doubleHeaders = GetPropHeaders(entities, Related.DBL, this.props.headerProperty);
-    const boolHeaders = GetPropHeaders(entities, Related.BOOL, this.props.headerProperty);
-    const dtHeaders = GetPropHeaders(entities, Related.DATE, this.props.headerProperty);
-    const enumHeaders = GetPropHeaders(entities, Related.ENUM, this.props.headerProperty);
-    //const geoHeaders = GetPropHeaders(entities, Related.GEO, this.props.headerProperty);
+    const suggestHeaders = GetPropHeaders(entities, KindProperty.SUGGESTION, this.props.headerProperty);
+    const strHeaders = GetPropHeaders(entities, KindProperty.STR, this.props.headerProperty);
+    const num32Headers = GetPropHeaders(entities, KindProperty.NUM32, this.props.headerProperty);
+    const num64Headers = GetPropHeaders(entities, KindProperty.NUM64, this.props.headerProperty);
+    const doubleHeaders = GetPropHeaders(entities, KindProperty.DBL, this.props.headerProperty);
+    const boolHeaders = GetPropHeaders(entities, KindProperty.BOOL, this.props.headerProperty);
+    const dtHeaders = GetPropHeaders(entities, KindProperty.DATE, this.props.headerProperty);
+    const enumHeaders = GetPropHeaders(entities, KindProperty.ENUM, this.props.headerProperty);
+    //const geoHeaders = GetPropHeaders(entities, KindProperty.GEO, this.props.headerProperty);
     const RelatedHeaders = GetEntityHeaders(entities, this.props.headerRelated);
 
     const colspan =
@@ -64,34 +64,34 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
           <Table.Header>
             <Table.Row>
               {suggestHeaders.map(h => (
-                <TableHeader {...h} related={Related.SUGGESTION} />
+                <TableHeader {...h} related={KindProperty.SUGGESTION} />
               ))}
               {strHeaders.map(h => (
-                <TableHeader {...h} related={Related.STR} />
+                <TableHeader {...h} related={KindProperty.STR} />
               ))}
               {num32Headers.map(h => (
-                <TableHeader {...h} related={Related.NUM32} />
+                <TableHeader {...h} related={KindProperty.NUM32} />
               ))}
               {num64Headers.map(h => (
-                <TableHeader {...h} related={Related.NUM64} />
+                <TableHeader {...h} related={KindProperty.NUM64} />
               ))}
               {doubleHeaders.map(h => (
-                <TableHeader {...h} related={Related.DBL} />
+                <TableHeader {...h} related={KindProperty.DBL} />
               ))}
               {boolHeaders.map(h => (
-                <TableHeader {...h} related={Related.BOOL} />
+                <TableHeader {...h} related={KindProperty.BOOL} />
               ))}
               {enumHeaders.map(h => (
-                <TableHeader {...h} related={Related.ENUM} />
+                <TableHeader {...h} related={KindProperty.ENUM} />
               ))}
               {dtHeaders.map(h => (
-                <TableHeader {...h} related={Related.DATE} />
+                <TableHeader {...h} related={KindProperty.DATE} />
               ))}
               {/* {geoHeaders.map(h => tableHeader(h.title, h.index, Related.GEO) )} */}
               {RelatedHeaders.map(h => (
                 <TableHeader
                   {...h}
-                  related={Related.REFERENCE}
+                  related={10}
                   filter={this.props.filter}
                   filterList={this.getEntityFilters(h.index)}
                   selected={this.getEntitySelected(h.index)}
@@ -116,7 +116,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
               <Table.Row key={entity.id}>
                 {suggestHeaders.map((h, i) => (
                   <TableCell
-                    related={Related.SUGGESTION}
+                    related={KindProperty.SUGGESTION}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -124,7 +124,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
                 ))}
                 {strHeaders.map((h, i) => (
                   <TableCell
-                    related={Related.STR}
+                    related={KindProperty.STR}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -132,7 +132,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
                 ))}
                 {num32Headers.map((h, i) => (
                   <TableCell
-                    related={Related.NUM32}
+                    related={KindProperty.NUM32}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -140,7 +140,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
                 ))}
                 {num64Headers.map((h, i) => (
                   <TableCell
-                    related={Related.NUM64}
+                    related={KindProperty.NUM64}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -148,7 +148,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
                 ))}
                 {doubleHeaders.map((h, i) => (
                   <TableCell
-                    related={Related.DBL}
+                    related={KindProperty.DBL}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -156,7 +156,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
                 ))}
                 {boolHeaders.map((h, i) => (
                   <TableCell
-                    related={Related.BOOL}
+                    related={KindProperty.BOOL}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -164,7 +164,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
                 ))}
                 {enumHeaders.map((h, i) => (
                   <TableCell
-                    related={Related.ENUM}
+                    related={KindProperty.ENUM}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -172,7 +172,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
                 ))}
                 {dtHeaders.map((h, i) => (
                   <TableCell
-                    related={Related.DATE}
+                    related={KindProperty.DATE}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}
@@ -182,7 +182,7 @@ export default class TableBaseFenix extends React.Component<ITableBaseFenixProps
 
                 {RelatedHeaders.map((h, i) => (
                   <TableCell
-                    related={Related.REFERENCE}
+                    related={10}
                     entity={entity}
                     typeSearchIndex={h.index}
                     key={`${entity.id}_${i}`}

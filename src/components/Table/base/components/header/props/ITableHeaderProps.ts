@@ -1,10 +1,10 @@
-import { Related } from '@fenix/tf-search-model';
+import { KindProperty } from '@trifenix/mdm';
 import { IEntityNameId } from '../../../model';
 
 export default interface ITableHeaderProps {
   title: string;
   index: Number;
-  related: Related;
+  related: KindProperty;
   filter?: boolean;
   filterList?: IEntityNameId[];
   selected?: string[];

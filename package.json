@@ -1,6 +1,6 @@
 {
   "name": "@trifenix/table-fenix",
-  "description": "Componente tabla para conexión con trifenix connect",
+  "description": "Componente tabla para conexión con trifenix connect, por ahora con semantic ui",
   "version": "0.0.5",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/trifenix/old-fenix-component/"
+    "url": "https://github.com/trifenix/table-fenix/"
   },
   "keywords": [
     "trifenix",

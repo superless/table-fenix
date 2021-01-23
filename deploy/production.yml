@@ -4,29 +4,42 @@ trigger:
       - master
 
 pool:
-  vmImage: "ubuntu-latest"
+  vmImage: "ubuntu-16.04"
+
+# github ejecuta este build, para validar y ejecutar,
+# es decir, dos veces
+# esta instrucción asigna que no se ejecute en el pull request (para validar).
+# sino, que solo se ejecute al modificar la rama.
+pr: none
+
 
 steps:
-  - task: UseGitVersion@5
+  - task: gitversion/setup@0
     inputs:
-      versionSpec: "5.x"
-      includePrerelease: true
-      useConfigFile: true
-      configFilePath: "deploy/gitConfig.yml"
+      versionSpec: '5.x'
+      includePrerelease: false
+    displayName : "Configurando gitversion"
 
+  - task: gitversion/execute@0
+    inputs:
+      useConfigFile: true
+      configFilePath: "deploy/gitConfig.yml" 
+    displayName: "generando version actual"
+
+  
   - task: NodeTool@0
     inputs:
       versionSpec: "12.x"
     displayName: "Install Node.js"
+    
 
   - task: Npm@1
     inputs:
-      command: "custom"
-      customCommand: "--no-git-tag-version version $(GitVersion.MajorMinorPatch)"
-
-  - task: CmdLine@2
-    inputs:
-      script: "cat package.json"
+      command: 'custom'
+      customCommand: '--no-git-tag-version version $(FullSemVer)'
+      customRegistry: 'useFeed'
+      customFeed: '$(default-feed)'
+ 
 
   - task: CopyFiles@2
     inputs:

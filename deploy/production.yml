@@ -4,7 +4,7 @@ trigger:
       - master
 
 pool:
-  vmImage: "ubuntu-16.04"
+  vmImage: "windows-latest"
 
 # github ejecuta este build, para validar y ejecutar,
 # es decir, dos veces

@@ -29,7 +29,7 @@ steps:
   - task: Npm@1
     inputs:
       command: 'custom'
-      customCommand: '--no-git-tag-version version $(MAJOR).$(MINOR).$(PATCH)'
+      customCommand: '--no-git-tag-version version 0.1.2'
       customRegistry: 'useFeed'
       customFeed: '$(default-feed)'
  

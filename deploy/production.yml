@@ -4,7 +4,7 @@ trigger:
       - master
 
 pool:
-  vmImage: "ubuntu-16.04"
+  vmImage: "gitversion /output json /showvariable SemVer"
 
 # github ejecuta este build, para validar y ejecutar,
 # es decir, dos veces
@@ -16,7 +16,7 @@ pr: none
 steps:
   - task: gitversion/setup@0
     inputs:
-      versionSpec: '5.x'
+      versionSpec: '5.6.4'
       includePrerelease: false
     displayName : "Configurando gitversion"
 

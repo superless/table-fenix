@@ -2,3 +2,5 @@ branches:
   master:
     increment: Patch
 mode: ContinuousDelivery
+ignore:
+  sha: []

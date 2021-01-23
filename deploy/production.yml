@@ -4,7 +4,7 @@ trigger:
       - master
 
 pool:
-  vmImage: "gitversion /output json /showvariable SemVer"
+  vmImage: "ubuntu-16.04"
 
 # github ejecuta este build, para validar y ejecutar,
 # es decir, dos veces

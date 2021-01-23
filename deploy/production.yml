@@ -14,17 +14,10 @@ pr: none
 
 
 steps:
-  - task: gitversion/setup@0
-    inputs:
-      versionSpec: '5.x'
-      includePrerelease: false
-    displayName : "Configurando gitversion"
 
-  - task: gitversion/execute@0
+  - task: ExtractVersionFromTag@1
     inputs:
-      useConfigFile: true
-      configFilePath: "deploy/gitConfig.yml" 
-    displayName: "generando version actual"
+      projectFolderPath: '$(Build.SourcesDirectory)'
 
   
   - task: NodeTool@0
@@ -36,7 +29,7 @@ steps:
   - task: Npm@1
     inputs:
       command: 'custom'
-      customCommand: '--no-git-tag-version version $(FullSemVer)'
+      customCommand: '--no-git-tag-version version $(MAJOR).$(MINOR).$(PATCH)'
       customRegistry: 'useFeed'
       customFeed: '$(default-feed)'
  

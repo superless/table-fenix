@@ -1,6 +1,6 @@
 {
   "name": "@trifenix/table-fenix",
-  "description": "Componente tabla para conexión con trifenix connect, por ahora con semantic ui",
+  "description": "Componente tabla para conexión con trifenix connect, por ahora con semantic ui.",
   "version": "0.0.1",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",

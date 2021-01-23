@@ -64,3 +64,6 @@ branches:
     track-merge-target: true
     tracks-release-branches: true
     is-release-branch: false
+  ignore:
+  sha: []
+  commits-before: 2020-01-21T00:00:00
